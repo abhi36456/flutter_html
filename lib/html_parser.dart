@@ -58,6 +58,7 @@ class HtmlParser extends StatelessWidget {
   final List<String> tagsList;
   final NavigationDelegate? navigationDelegateForIframe;
   final OnTap? _onAnchorTap;
+  final bool nospace;
 
   HtmlParser({
     required this.key,
@@ -74,6 +75,7 @@ class HtmlParser extends StatelessWidget {
     required this.customRender,
     required this.imageRenders,
     required this.tagsList,
+    required this.nospace,
     required this.navigationDelegateForIframe,
   })  : this._onAnchorTap = onAnchorTap != null
           ? onAnchorTap
@@ -323,6 +325,7 @@ class HtmlParser extends StatelessWidget {
           key: AnchorKey.of(key, tree),
           newContext: newContext,
           style: tree.style,
+          nospace: nospace,
           shrinkWrap: context.parser.shrinkWrap,
           children: tree.children.map((tree) => parseTree(newContext, tree)).toList(),
         ),
@@ -336,6 +339,7 @@ class HtmlParser extends StatelessWidget {
                   key: AnchorKey.of(key, tree),
                   newContext: newContext,
                   style: tree.style,
+                  nospace: nospace,
                   shrinkWrap: context.parser.shrinkWrap,
                   child: render,
                 ),
@@ -370,6 +374,7 @@ class HtmlParser extends StatelessWidget {
           key: AnchorKey.of(key, tree),
           newContext: newContext,
           style: tree.style,
+          nospace: nospace,
           shrinkWrap: context.parser.shrinkWrap,
           children: tree.children
               .expandIndexed((i, childTree) => [
@@ -404,6 +409,7 @@ class HtmlParser extends StatelessWidget {
           key: AnchorKey.of(key, tree),
           newContext: newContext,
           style: tree.style,
+          nospace: nospace,
           shrinkWrap: context.parser.shrinkWrap,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -1008,6 +1014,7 @@ class ContainerSpan extends StatelessWidget {
   final Widget? child;
   final List<InlineSpan>? children;
   final Style style;
+  final bool nospace;
   final RenderContext newContext;
   final bool shrinkWrap;
 
@@ -1016,6 +1023,7 @@ class ContainerSpan extends StatelessWidget {
     this.child,
     this.children,
     required this.style,
+    required this.nospace,
     required this.newContext,
     this.shrinkWrap = false,
   }): super(key: key);
@@ -1029,8 +1037,8 @@ class ContainerSpan extends StatelessWidget {
       ),
       height: style.height,
       width: style.width,
-      padding: style.padding,
-      margin: style.margin,
+      padding: nospace ? null : style.padding,
+      margin: nospace ? null : style.margin,
       alignment: shrinkWrap ? null : style.alignment,
       child: child ??
           StyledText(

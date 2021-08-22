@@ -58,6 +58,7 @@ class Html extends StatelessWidget {
     this.onCssParseError,
     this.onImageError,
     this.onMathError,
+    this.nospace = false,
     this.shrinkWrap = false,
     this.onImageTap,
     this.tagsList = const [],
@@ -83,6 +84,7 @@ class Html extends StatelessWidget {
     this.onImageTap,
     this.tagsList = const [],
     this.style = const {},
+    this.nospace = false,
     this.navigationDelegateForIframe,
   })  : data = null,
         assert(document != null),
@@ -122,6 +124,8 @@ class Html extends StatelessWidget {
   /// A parameter that should be set when the HTML widget is expected to be
   /// flexible
   final bool shrinkWrap;
+
+  final bool nospace;
 
   /// A function that defines what to do when an image is tapped
   final OnTap? onImageTap;
@@ -167,6 +171,7 @@ class Html extends StatelessWidget {
         onMathError: onMathError,
         shrinkWrap: shrinkWrap,
         selectable: false,
+        nospace: nospace,
         style: style,
         customRender: customRender,
         imageRenders: {}
@@ -221,6 +226,7 @@ class SelectableHtml extends StatelessWidget {
     this.shrinkWrap = false,
     this.style = const {},
     this.tagsList = const [],
+    this.nospace = false,
   }) : document = null,
         assert(data != null),
         _anchorKey = anchorKey ?? GlobalKey(),
@@ -236,6 +242,7 @@ class SelectableHtml extends StatelessWidget {
     this.shrinkWrap = false,
     this.style = const {},
     this.tagsList = const [],
+    this.nospace = false,
   }) : data = null,
         assert(document != null),
         _anchorKey = anchorKey ?? GlobalKey(),
@@ -264,6 +271,8 @@ class SelectableHtml extends StatelessWidget {
   /// flexible
   final bool shrinkWrap;
 
+  final bool nospace;
+
   /// A list of HTML tags that defines what elements are not rendered
   final List<String> tagsList;
 
@@ -281,6 +290,7 @@ class SelectableHtml extends StatelessWidget {
       width: width,
       child: HtmlParser(
         key: _anchorKey,
+        nospace: nospace,
         htmlData: doc,
         onLinkTap: onLinkTap,
         onAnchorTap: onAnchorTap,

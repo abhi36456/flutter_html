@@ -483,15 +483,16 @@ class FontSize {
   //
   // Negative values are computed during parsing to be a percentage of
   // the parent style's font size.
-  static const xxSmall = FontSize(7.875);
-  static const xSmall = FontSize(8.75);
-  static const small = FontSize(11.375);
-  static const medium = FontSize(14.0);
-  static const large = FontSize(15.75);
-  static const xLarge = FontSize(21.0);
-  static const xxLarge = FontSize(28.0);
-  static const smaller = FontSize(-0.83);
-  static const larger = FontSize(-1.2);
+  static const xxSmall = FontSize(14.875);
+  static const xSmall = FontSize(16.75);
+  static const small = FontSize(18.375);
+  static const medium = FontSize(21.0);
+  static const large = FontSize(25.75);
+  static const xLarge = FontSize(29.0);
+  static const xxLarge = FontSize(33.0);
+  static const smaller = FontSize(39.0);
+  static const larger = FontSize(43.0);
+  static const larger1 = FontSize(46.0);
 }
 
 class LineHeight {
