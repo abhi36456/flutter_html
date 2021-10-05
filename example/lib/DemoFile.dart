@@ -9,6 +9,8 @@ class DemoFile extends StatefulWidget {
 }
 
 class _DemoFileState extends State<DemoFile> {
+
+  int type = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,23 +31,23 @@ class _DemoFileState extends State<DemoFile> {
               color: Colors.orange,
               child: Html(
                 shrinkWrap: true,
+                data1: type == 0 ? "<p style='margin : 0; padding : 0 '>...More</p>" : "<p style='margin : 0; padding : 0 '>...Less</p>",
+                onMoreClick: (){
+                  if(type == 0){
+                    setState(() {
+                      type = 1;
+                    });
+                  }else{
+                    setState(() {
+                      type = 0;
+                    });
+                  }
+                },
                 data: "<p style='margin : 0; padding : 0 '>rohannnnnn111</p>",
                 style: {"p": Style(color: Colors.white)},
               ),
             ),
-            SizedBox(height: 20,),
-            Container(
-              color: Colors.red,
-              child: Text(
-                "rohannnnnn",
-              ),
-            ),
-            Container(
-              color: Colors.orange,
-              child: Text(
-                "rohannnnnn111",
-              ),
-            ),
+
 
           ],
         ),
