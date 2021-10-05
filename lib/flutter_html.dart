@@ -12,14 +12,12 @@ import 'package:webview_flutter/webview_flutter.dart';
 //export render context api
 export 'package:flutter_html/html_parser.dart';
 export 'package:flutter_html/image_render.dart';
-
 //export src for advanced custom render uses (e.g. casting context.tree)
 export 'package:flutter_html/src/anchor.dart';
 export 'package:flutter_html/src/interactable_element.dart';
 export 'package:flutter_html/src/layout_element.dart';
 export 'package:flutter_html/src/replaced_element.dart';
 export 'package:flutter_html/src/styled_element.dart';
-
 //export style api
 export 'package:flutter_html/style.dart';
 
@@ -52,9 +50,7 @@ class Html extends StatelessWidget {
   Html({
     Key? key,
     GlobalKey? anchorKey,
-    GlobalKey? anchorKey1,
     required this.data,
-    this.onMoreClick,
     this.onLinkTap,
     this.onAnchorTap,
     this.customRender = const {},
@@ -71,13 +67,11 @@ class Html extends StatelessWidget {
   })  : document = null,
         assert(data != null),
         _anchorKey = anchorKey ?? GlobalKey(),
-        _anchorKey1 = anchorKey1 ?? GlobalKey(),
         super(key: key);
 
   Html.fromDom({
     Key? key,
     GlobalKey? anchorKey,
-    GlobalKey? anchorKey1,
     @required this.document,
     this.onLinkTap,
     this.onAnchorTap,
@@ -92,20 +86,16 @@ class Html extends StatelessWidget {
     this.style = const {},
     this.nospace = false,
     this.navigationDelegateForIframe,
-    this.onMoreClick,
   })  : data = null,
         assert(document != null),
         _anchorKey = anchorKey ?? GlobalKey(),
-        _anchorKey1 = anchorKey1 ?? GlobalKey(),
         super(key: key);
 
   /// A unique key for this Html widget to ensure uniqueness of anchors
   final GlobalKey _anchorKey;
-  final GlobalKey _anchorKey1;
 
   /// The HTML data passed to the widget as a String
   final String? data;
-  final Function()? onMoreClick;
 
   /// The HTML data passed to the widget as a pre-processed [dom.Document]
   final dom.Document? document;
@@ -170,30 +160,25 @@ class Html extends StatelessWidget {
 
     return Container(
       width: width,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          HtmlParser(
-            key: _anchorKey,
-            htmlData: doc,
-            onLinkTap: onLinkTap,
-            onAnchorTap: onAnchorTap,
-            onImageTap: onImageTap,
-            onCssParseError: onCssParseError,
-            onImageError: onImageError,
-            onMathError: onMathError,
-            shrinkWrap: shrinkWrap,
-            selectable: false,
-            nospace: nospace,
-            style: style,
-            customRender: customRender,
-            imageRenders: {}
-              ..addAll(customImageRenders)
-              ..addAll(defaultImageRenders),
-            tagsList: tagsList.isEmpty ? Html.tags : tagsList,
-            navigationDelegateForIframe: navigationDelegateForIframe,
-          ),
-        ],
+      child: HtmlParser(
+        key: _anchorKey,
+        htmlData: doc,
+        onLinkTap: onLinkTap,
+        onAnchorTap: onAnchorTap,
+        onImageTap: onImageTap,
+        onCssParseError: onCssParseError,
+        onImageError: onImageError,
+        onMathError: onMathError,
+        shrinkWrap: shrinkWrap,
+        selectable: false,
+        nospace: nospace,
+        style: style,
+        customRender: customRender,
+        imageRenders: {}
+          ..addAll(customImageRenders)
+          ..addAll(defaultImageRenders),
+        tagsList: tagsList.isEmpty ? Html.tags : tagsList,
+        navigationDelegateForIframe: navigationDelegateForIframe,
       ),
     );
   }
@@ -234,7 +219,6 @@ class SelectableHtml extends StatelessWidget {
   SelectableHtml({
     Key? key,
     GlobalKey? anchorKey,
-    GlobalKey? anchorKey1,
     required this.data,
     this.onLinkTap,
     this.onAnchorTap,
@@ -243,16 +227,14 @@ class SelectableHtml extends StatelessWidget {
     this.style = const {},
     this.tagsList = const [],
     this.nospace = false,
-  })  : document = null,
+  }) : document = null,
         assert(data != null),
         _anchorKey = anchorKey ?? GlobalKey(),
-        _anchorKey1 = anchorKey1 ?? GlobalKey(),
         super(key: key);
 
   SelectableHtml.fromDom({
     Key? key,
     GlobalKey? anchorKey,
-    GlobalKey? anchorKey1,
     required this.document,
     this.onLinkTap,
     this.onAnchorTap,
@@ -261,15 +243,13 @@ class SelectableHtml extends StatelessWidget {
     this.style = const {},
     this.tagsList = const [],
     this.nospace = false,
-  })  : data = null,
+  }) : data = null,
         assert(document != null),
         _anchorKey = anchorKey ?? GlobalKey(),
-        _anchorKey1 = anchorKey1 ?? GlobalKey(),
         super(key: key);
 
   /// A unique key for this Html widget to ensure uniqueness of anchors
   final GlobalKey _anchorKey;
-  final GlobalKey _anchorKey1;
 
   /// The HTML data passed to the widget as a String
   final String? data;
@@ -303,8 +283,7 @@ class SelectableHtml extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dom.Document doc =
-        data != null ? HtmlParser.parseHTML(data!) : document!;
+    final dom.Document doc = data != null ? HtmlParser.parseHTML(data!) : document!;
     final double? width = shrinkWrap ? null : MediaQuery.of(context).size.width;
 
     return Container(
