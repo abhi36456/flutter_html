@@ -32,17 +32,6 @@ class _DemoFileState extends State<DemoFile> {
               color: Colors.orange,
               child: Html(
                 shrinkWrap: true,
-                onMoreClick: (){
-                  if(type == 0){
-                    setState(() {
-                      type = 1;
-                    });
-                  }else{
-                    setState(() {
-                      type = 0;
-                    });
-                  }
-                },
                 data: "<p style='margin : 0; padding : 0 '>rohannnnnn111</p>",
                 style: {"p": Style(color: Colors.white)},
               ),
